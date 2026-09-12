@@ -127,7 +127,7 @@ export function Auth() {
               </div>
             </div>
             <div className="text-center">
-              <Button isLoading={isLoading} type="submit">
+              <Button isLoading={isLoading} type="submit" variant='secondary'>
                 {isLogin ? 'Log in' : 'Sign up'}
               </Button>
             </div>

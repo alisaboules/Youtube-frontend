@@ -45,7 +45,12 @@ export function UploadField({
         <UploadCloud className="mr-2" />
         Загрузить
       </label>
-      <input id={inputId} type="file" onChange={uploadFile} accept="image/*" className="hidden" />
+      <input id={inputId} type="file" onChange={event => {
+        const file = event.target.files?.[0];
+        if (file) {
+          uploadFile(file);
+        }}}
+        accept="image/*" className="hidden" />
       {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
       {isImage && (
         <div>
