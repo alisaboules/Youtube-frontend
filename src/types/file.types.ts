@@ -9,4 +9,5 @@ export interface IFileResponse {
 export interface IProcessingStatus {
   fileName: string;
   status: number;
+  url?: string;
 }
