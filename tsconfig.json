@@ -5,6 +5,8 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -19,8 +21,9 @@
       }
     ],
     "paths": {
+      "@/ui/*": ["./src/components/ui/*"],
       "@/*": ["./src/*"]
-    }
+    },
   },
   "include": [
     "next-env.d.ts",
