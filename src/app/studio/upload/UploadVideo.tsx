@@ -52,7 +52,7 @@ export function UploadVideo({ }: Props) {
   const [selectedThumbnail, setSelectedThumbnail] = useState<File | null>(null);
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (data: IVideoFormData) => studioService.create(data),
     onSuccess() {
       toast.success('Video successfully published!');
@@ -65,7 +65,6 @@ export function UploadVideo({ }: Props) {
   });
   const [processingFileName, setProcessingFileName] = useState<string | null>(null);
   const fileName = useWatch({ control, name: 'videoFileName' });
-  const thumbnailUrl = useWatch({control, name: 'thumbnailUrl'});
   const onSubmit: SubmitHandler<IVideoFormData> = (data) => {
     console.log(data);
     mutate(data);

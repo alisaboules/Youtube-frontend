@@ -1,5 +1,4 @@
 import { useProfile } from '@/hooks/useProfile';
-import type { ISidebarSubItem } from '../../../../../types/sidebar.types';
 import { SubItem } from './SubItem';
 
 interface Props {

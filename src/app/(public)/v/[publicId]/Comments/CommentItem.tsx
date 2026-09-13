@@ -7,7 +7,6 @@ import type { ICommentData, ISingleVideoResponse } from '@/types/video.types';
 import Link from 'next/link';
 import { transformDate } from '@/utils/transform-date';
 
-
 import { useProfile } from '@/hooks/useProfile';
 import { cn } from '@/utils/cn';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -17,7 +16,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Textarea } from '@/ui/field/Textarea';
 import { Smile } from 'lucide-react';
 import EmojiPicker, { Theme } from 'emoji-picker-react';
-import { BsPinAngleFill } from "react-icons/bs";
+import { BsPinAngleFill } from 'react-icons/bs';
 import { CommentLikes } from './CommentLikes';
 import EllipsisComment from './EllipsisComment';
 import Report from '../Video/Report';
@@ -106,10 +105,9 @@ export function CommentItem({ comment, refetch, videoAuthorId, authorName }: Pro
   const isEmpty = !editText.trim();
   const hasChanges = editText.trim() !== comment.text.trim();
   const editContainerRef = useRef<HTMLDivElement | null>(null);
-
+  const channelSlug = comment.user.channel?.slug;
   useEffect(() => {
     if (!isEditing) return;
-
     const handleClickOutside = (event: MouseEvent) => {
       if (editContainerRef.current && !editContainerRef.current.contains(event.target as Node)) {
         if (showEmoji) {
@@ -146,44 +144,51 @@ export function CommentItem({ comment, refetch, videoAuthorId, authorName }: Pro
     <>
       <div className="flex gap-1 items-start">
         <div className="w-[30px] h-[30px] rounded-full overflow-hidden shrink-0">
-          <Link
-            href={PUBLIC_PAGE.CHANNEL(comment.user.channel?.slug || '')}
-            className="block w-full h-full">
+          {channelSlug ? (
+            <Link href={PUBLIC_PAGE.CHANNEL(channelSlug)} className="block w-full h-full">
+              <Image
+                alt={comment.user.channel?.name || 'Чей-то аватар'}
+                src={comment.user.channel?.avatarUrl || '/default_avatar.jpeg'}
+                width={30}
+                height={30}
+                className="block w-[30px] h-[30px] object-cover"
+                quality={100}
+                title={comment.user.channel?.name}
+              />
+            </Link>
+          ) : (
             <Image
-              alt={comment.user.channel?.name || 'Чей-то аватар'}
-              src={comment.user.channel?.avatarUrl || '/default_avatar.jpeg'}
+              alt={comment.user.name || 'Чей-то аватар'}
+              src="/default_avatar.jpeg"
               width={30}
               height={30}
               className="block w-[30px] h-[30px] object-cover"
               quality={100}
-              title={comment.user.channel?.name}
             />
-          </Link>
+          )}
         </div>
         <div className="flex flex-col mr-4 gap-1 justify-start w-full">
-          {comment.isPinned && 
-          (<div className='flex text-secondary text-sm gap-1 mb-1 items-center pl-2'>
-            <BsPinAngleFill className='' />
-            <span>{`Pinned by @${authorName}`}</span>
-          </div>)}
-          <Link
-            href={PUBLIC_PAGE.CHANNEL(comment.user.channel?.slug || comment.user.name || '')}
-            title={comment.user.channel?.slug || comment.user.name || ''}>
-            <div className="flex gap-1 text-sm pl-2 items-center">
-              <div
-                className={cn('flex gap-1 items-center rounded-3xl', {
-                  'bg-foreground px-2 text-background font-medium': isAuthorChannelComment,
-                })}>
-                {`@${comment.user.channel?.slug || comment.user.name || 'Anonym'}`
-                  .toLowerCase()
-                  .replace(/\s+/g, '')}
-                {comment.user.channel?.isVerified && (
-                  <Verify className="w-3.5 h-3.5 text-bakground" />
-                )}
-              </div>
-              <span className="text-secondary">{transformDate(comment.createdAt)}</span>
+          {comment.isPinned && (
+            <div className="flex text-secondary text-sm gap-1 mb-1 items-center pl-2">
+              <BsPinAngleFill className="" />
+              <span>{`Pinned by @${authorName}`}</span>
             </div>
-          </Link>
+          )}
+
+          <div className="flex gap-1 text-sm pl-2 items-center">
+            <div
+              className={cn('flex gap-1 items-center rounded-3xl', {
+                'bg-foreground px-2 text-background font-medium': isAuthorChannelComment,
+              })}>
+              {`@${comment.user.channel?.slug || comment.user.name || 'Anonym'}`
+                .toLowerCase()
+                .replace(/\s+/g, '')}
+              {comment.user.channel?.isVerified && (
+                <Verify className="w-3.5 h-3.5 text-bakground" />
+              )}
+            </div>
+            <span className="text-secondary">{transformDate(comment.createdAt)}</span>
+          </div>
           {isEditing ? (
             <div ref={editContainerRef}>
               <div className="pl-2 mt-1 comment-input-line">
@@ -277,7 +282,12 @@ export function CommentItem({ comment, refetch, videoAuthorId, authorName }: Pro
             isPinned={comment.isPinned}
           />
         ) : (
-          <Report isVertical={true} onPin={() => pinComment()} isVideoAuthor={isVideoAuthor} isPinned={comment.isPinned}/>
+          <Report
+            isVertical={true}
+            onPin={() => pinComment()}
+            isVideoAuthor={isVideoAuthor}
+            isPinned={comment.isPinned}
+          />
         )}
       </div>
     </>
