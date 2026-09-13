@@ -158,7 +158,7 @@ export function CommentItem({ comment, refetch, videoAuthorId, authorName }: Pro
             </Link>
           ) : (
             <Image
-              alt={comment.user.name || 'Чей-то аватар'}
+              alt={'Чей-то аватар'}
               src="/default_avatar.jpeg"
               width={30}
               height={30}
