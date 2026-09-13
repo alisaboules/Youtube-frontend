@@ -66,8 +66,7 @@ class AuthService {
 
   private _saveTokenStorage(accessToken: string) {
     Cookies.set(EnumTokens.ACCESS_TOKEN, accessToken, {
-      domain: 'localhost',
-      sameSite: 'strict',
+      sameSite: 'lax',
       expires: 1 / 24,
       secure: true
     })
