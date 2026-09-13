@@ -1,8 +1,8 @@
 import type { NextRequest } from "next/server"
-import { STUDIO_PAGE } from "./config/studio-page";
-import { protectStudio } from "./server-actions/middleware/protect-studio.middleware";
-import { PUBLIC_PAGE } from "./config/public-page.config";
-import { protectLoginPages } from "./server-actions/middleware/protect-login.middleware";
+import { STUDIO_PAGE } from "./src/config/studio-page";
+import { protectStudio } from "./src/server-actions/middleware/protect-studio.middleware";
+import { PUBLIC_PAGE } from "./src/config/public-page.config";
+import { protectLoginPages } from "./src/server-actions/middleware/protect-login.middleware";
 
 
 export async function proxy(request: NextRequest) {
