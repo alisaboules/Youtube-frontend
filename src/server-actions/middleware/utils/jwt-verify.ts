@@ -15,10 +15,11 @@ export async function jwtVerifyServer(accessToken: string) {
       new TextEncoder().encode(`${process.env.JWT_SECRET}`)
     )
     return payload;
-  } catch(error) {
-    if (error instanceof Error && error.message.includes('exp claim timestamp check failed')) {
-      console.log('Токен истёк');
-      return null;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log('JWT verify error:', error.message)
     }
+
+    return null
   }
 }
