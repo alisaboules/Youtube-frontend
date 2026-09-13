@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     qualities: [75, 100],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'jejlfbogmfxhehnnsgjh.supabase.co',
+        pathname: '/storage/v1/object/public/Youtube/**',
+      },
+    ],
   },
   // async rewrites() {
   //   return [

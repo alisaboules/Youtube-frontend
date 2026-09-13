@@ -41,6 +41,7 @@ export default function Explore() {
 	})
 
 	const allVideos = data?.pages.flatMap(page => page.videos) || []
+	console.log('EXPLORE VIDEOS:', allVideos)
 
   return (
     <section className="px-10 mb-20">
