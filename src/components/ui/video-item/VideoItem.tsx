@@ -2,7 +2,6 @@
 import { PUBLIC_PAGE } from '@/config/public-page.config';
 import type { IVideo } from '@/types/video.types';
 import { transformDate } from '@/utils/transform-date';
-
 import { Dot, type LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,9 +22,7 @@ export function VideoItem({ video, Icon, main = false }: Props) {
 
   useEffect(() => {
     const image = imageRef.current;
-
     if (!image) return;
-
     const extraColor = async () => {
       try {
         const color = await getColor(image);

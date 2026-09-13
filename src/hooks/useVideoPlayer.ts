@@ -1,5 +1,6 @@
 'use client';
 
+import { STORAGE_URL } from '@/constants/storage';
 import { EnumVideoPlayerQuality, type HTMLCustomVideoElement } from '@/types/video-player.types';
 import { getVideoInfo } from '@/utils/video-player';
 import { useEffect, useRef, useState } from 'react';
@@ -73,7 +74,7 @@ export function useVideoPlayer({ fileName, maxResolution }: Props) {
 
     setQuality(quality);
 
-    player.src = `/uploads/videos/${maxResolution}/${fileName}`;
+    player.src = `${STORAGE_URL}/videos/${maxResolution}/${fileName}`;
     player.currentTime = time;
     player.play();
     setIsPlaying(true);

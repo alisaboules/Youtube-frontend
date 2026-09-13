@@ -9,6 +9,7 @@ import { VolumeControl } from './volume/VolumeControl';
 import { useVideoHotKeys } from '@/hooks/useVideoHotKeys';
 import { getTime } from '@/utils/getTime';
 import { cn } from '@/utils/cn';
+import { STORAGE_URL } from '@/constants/storage';
 
 interface Props {
   fileName: string;
@@ -38,7 +39,7 @@ export function VideoPlayer({ fileName, toggleTheaterMode, maxResolution, thumbn
         <video
         ref={bgRef}
         className="absolute rounded-lg top-0 left-0 -z-10 object-cover w-full h-full filter blur-3xl  brightness-90 contrast-125 saturate-150 mix-blend-lighten"
-        src={`/uploads/videos/${maxResolution}/${fileName}`}
+        src={`${STORAGE_URL}/videos/${maxResolution}/${fileName}`}
         muted
       />
       )}
@@ -47,7 +48,7 @@ export function VideoPlayer({ fileName, toggleTheaterMode, maxResolution, thumbn
         ref={playerRef}
         className={cn("rounded-lg object-contain w-full h-full z-[2] aspect-video relative")}
         controls={false}
-        src={`/uploads/videos/${maxResolution}/${fileName}`}
+        src={`${STORAGE_URL}/videos/${maxResolution}/${fileName}`}
         preload="metadata"
         onClick={fn.togglePlayPause}
         poster={thumbnailUrl}
